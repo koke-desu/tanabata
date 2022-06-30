@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tanabata2-dev-105713-authRole",
+      "UnauthRoleArn": "arn:aws:iam::980426460251:role/amplify-tanabata2-dev-105713-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::980426460251:role/amplify-tanabata2-dev-105713-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-tanabata2-dev-105713-deployment",
+      "UnauthRoleName": "amplify-tanabata2-dev-105713-unauthRole",
+      "StackName": "amplify-tanabata2-dev-105713",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:980426460251:stack/amplify-tanabata2-dev-105713/77989d70-f5bc-11ec-8b76-0609ebed2677",
+      "AmplifyAppId": "d2uddl0408awkm"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2uddl0408awkm",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}

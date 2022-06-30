@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "tanabata2",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/KeNs4N/Downloads/大学/研究室/toyama_dx/POLYGON/tanabata2/amplify/backend/api/tanabata2/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}

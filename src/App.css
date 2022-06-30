@@ -1,5 +1,34 @@
+/* wrote by bachikori */
+@media all and (min-width: 500px) {
+  .wrapper {
+    display: flex;
+  }
+}
+
+.container {
+  background: url('./assets/6704_b.png') no-repeat;
+}
+
+.todo {
+  background: url('./assets/6704_y.png') no-repeat;
+}
+
+.todo_container {
+  width: 100%;
+  margin: '0 auto';
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+
+
+
+
+
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
