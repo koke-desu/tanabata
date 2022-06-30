@@ -1,92 +1,76 @@
-import React, {useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from "react";
 
-import API, { graphqlOperation } from '@aws-amplify/api';
-import PubSub from '@aws-amplify/pubsub';
-import { listTodos } from './graphql/queries';
-import { onCreateTodo } from './graphql/subscriptions';
+import API, { graphqlOperation } from "@aws-amplify/api";
+import PubSub from "@aws-amplify/pubsub";
+import { listTodos } from "./graphql/queries";
+import { onCreateTodo } from "./graphql/subscriptions";
 
-import awsconfig from './aws-exports';
-import './App.css';
+import take from "./assets/take.png";
 
-import Canvas from './Canvas';
-import Tanzaku from './Tanzaku';
+// import awsconfig from './aws-exports';
+import "./App.css";
 
-const QUERY = 'QUERY';
-const SUBSCRIPTION = 'SUBSCRIPTION';
+import Canvas from "./Canvas";
+import Tanzaku from "./Tanzaku";
 
-API.configure(awsconfig);
-PubSub.configure(awsconfig);
+const QUERY = "QUERY";
+const SUBSCRIPTION = "SUBSCRIPTION";
+
+// API.configure(awsconfig);
+// PubSub.configure(awsconfig);
 
 const initialState = {
-  todos: [],
+  todos: Array(20).fill("aaaa"),
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case QUERY:
-      return {...state, todos: action.todos};
+      return { ...state, todos: action.todos };
     case SUBSCRIPTION:
-      return {...state, todos:[...state.todos, action.todo]}
+      return { ...state, todos: [...state.todos, action.todo] };
     default:
       return state;
   }
 };
 
-// async function createNewTodo() {
-//   const todo = { name:  "Todo " + Math.floor(Math.random() * 10) };
-//   await API.graphql(graphqlOperation(createTodo, { input: todo }));
-// }
-
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [user] = useState(null);
 
   useEffect(() => {
-
     async function getData() {
       const todoData = await API.graphql(graphqlOperation(listTodos));
       dispatch({ type: QUERY, todos: todoData.data.listTodos.items });
     }
-    getData();
+    // getData();
 
-    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
-      next: (eventData) => {
-        const todo = eventData.value.data.onCreateTodo;
-        dispatch({ type: SUBSCRIPTION, todo });
-      }
-    });
+    // const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
+    //   next: (eventData) => {
+    //     const todo = eventData.value.data.onCreateTodo;
+    //     dispatch({ type: SUBSCRIPTION, todo });
+    //   }
+    // });
 
-    return () => subscription.unsubscribe();
+    // return () => subscription.unsubscribe();
   }, []);
 
   return (
-    <div className="App">
-      <Canvas />
-
-       {
-         state.todos.map((todo, index) => (
-          //  <div className='todo' key={todo.id ? todo.id : index} style={styles.todo}>
-          //    <p style={styles.todoName}>{todo.name}</p>
-          //    <p style={styles.todoDescription}>{todo.description}</p>
-          //  </div>
-          <Tanzaku num={index}/>
-         ))
-       }
-     </div>
-
+    <div className="App" style={{ position: "relative" }}>
+      <img src={take} style={{ position: "absolute", top: 0, left: 0 }} />
+      {state.todos.map((todo, index) => (
+        <Tanzaku text={todo} x={100 * index} y={100 * index} key={`tanzaku_${index}`} />
+      ))}
+    </div>
   );
 }
 
 export default App;
 
 const styles = {
-  todo: { width: '100%',  marginBottom: 15 },
-  todoName: { fontSize: 14, marginLeft: 30},
-  todoDescription: { fontSize: 16, fontWeight: 'bold', marginTop: -20, marginLeft: 30 }
-}
-
-
-
+  todo: { width: "100%", marginBottom: 15 },
+  todoName: { fontSize: 14, marginLeft: 30 },
+  todoDescription: { fontSize: 16, fontWeight: "bold", marginTop: -20, marginLeft: 30 },
+};
 
 // import React, { useEffect, useState } from 'react'
 // import Amplify, { API, graphqlOperation } from 'aws-amplify'
@@ -121,7 +105,7 @@ const styles = {
 //     } catch (err) { console.log('error fetching todos') }
 
 //     //多分ここにsubscribe
-    
+
 //     await API.graphql(graphqlOperation(onCreateTodo)).subscribe({
 //       next: (eventData) => {
 //         console.log('eventData: ', eventData)
