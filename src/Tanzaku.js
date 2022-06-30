@@ -9,7 +9,7 @@ function Tanzaku({ x, y, text, setBackBlur, index }) {
       style={{ display: "flex", position: "absolute", top: y, left: x }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1, type: "spring" }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.6, delay: (index % 6) * 0.2 }}
     >
       <motion.div
         animate={{ rotate: 15, translateX: -20 }}
@@ -17,7 +17,7 @@ function Tanzaku({ x, y, text, setBackBlur, index }) {
           repeat: Infinity,
           duration: 2,
           repeatType: "reverse",
-          delay: index * 0.2,
+          delay: (index % 6) * 0.2,
         }}
         style={{
           position: "relative",
