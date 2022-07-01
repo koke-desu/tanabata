@@ -1,9 +1,19 @@
 import { type } from "@testing-library/user-event/dist/type";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+
+// @ts-ignore
 import tanzaku from "./assets/6704_b_a.png";
 
-function Tanzaku({ x, y, text, setBackBlur, index }) {
+type Props = {
+  x: number;
+  y: number;
+  text: string;
+  setBackBlur: (blur: boolean) => void;
+  index: number;
+};
+
+const Tanzaku: React.FC<Props> = ({ x, y, text, setBackBlur, index }) => {
   return (
     <motion.div
       style={{ display: "flex", position: "absolute", top: y, left: x }}
@@ -54,6 +64,6 @@ function Tanzaku({ x, y, text, setBackBlur, index }) {
       </motion.div>
     </motion.div>
   );
-}
+};
 
 export default Tanzaku;
