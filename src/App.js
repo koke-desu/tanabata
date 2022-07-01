@@ -36,30 +36,45 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const [backBlur, setBackBlur] = useState(false);
+  const { width, height } = window.parent.screen;
   useEffect(() => {
-    async function getData() {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
-      dispatch({ type: QUERY, todos: todoData.data.listTodos.items });
-    }
+    console.log(width, ":", height);
+    // async function getData() {
+    //   const todoData = await API.graphql(graphqlOperation(listTodos));
+    //   dispatch({ type: QUERY, todos: todoData.data.listTodos.items });
+    // }
     // getData();
-
     // const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
     //   next: (eventData) => {
     //     const todo = eventData.value.data.onCreateTodo;
     //     dispatch({ type: SUBSCRIPTION, todo });
     //   }
     // });
-
     // return () => subscription.unsubscribe();
   }, []);
 
   return (
     <div className="App" style={{ position: "relative" }}>
       <img src={take} style={{ position: "absolute", top: 0, left: 0 }} />
-      {state.todos.map((todo, index) => (
-        <Tanzaku text={todo} x={100 * index} y={100 * index} key={`tanzaku_${index}`} />
-      ))}
+      <div
+        style={{
+          display: "flex",
+          alignContent: "center",
+          backgroundColor: "red",
+        }}
+      >
+        {state.todos.map((todo, index) => (
+          <Tanzaku
+            index={index}
+            text={todo}
+            x={Math.random() * width}
+            y={Math.random() * height}
+            setBackBlur={setBackBlur}
+            key={`tanzaku_${index}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -69,7 +84,12 @@ export default App;
 const styles = {
   todo: { width: "100%", marginBottom: 15 },
   todoName: { fontSize: 14, marginLeft: 30 },
-  todoDescription: { fontSize: 16, fontWeight: "bold", marginTop: -20, marginLeft: 30 },
+  todoDescription: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: -20,
+    marginLeft: 30,
+  },
 };
 
 // import React, { useEffect, useState } from 'react'
