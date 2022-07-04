@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { LegacyRef, useEffect, useRef, useState } from "react";
 import "./App.css";
 import { useGetStrips } from "./database/getStrips";
 import Tanzaku from "./Tanzaku";
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
 // @ts-ignore
-import take from "./assets/take.png";
+import take from "./assets/take_touka.png";
+// @ts-ignore
+import background from "./assets/backgroundMovie.mp4";
 
 Amplify.configure(awsExports);
 
@@ -18,26 +20,29 @@ function App() {
   if (strips === undefined) return <p>loading...</p>;
 
   return (
-    <div className="App" style={{ position: "relative" }}>
-      <img src={take} style={{ position: "absolute", top: 0, left: 0 }} />
-      <div
-        style={{
-          display: "flex",
-          alignContent: "center",
-          backgroundColor: "red",
-        }}
-      >
-        {strips.map((strip, index) => (
-          <Tanzaku
-            index={index}
-            text={strip.text}
-            x={Math.random() * width}
-            y={Math.random() * height}
-            setBackBlur={setBackBlur}
-            key={`tanzaku_${index}`}
-          />
-        ))}
-      </div>
+    <div
+      style={{
+        display: "flex",
+        alignContent: "center",
+        backgroundColor: "red",
+        height: "100vh",
+        width: "100vw",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      <img src={take} style={{ position: "absolute", top: 0, left: 0 }} alt="竹" />
+      <video src={background} width={1920} height={1020} autoPlay muted loop />
+      {strips.map((strip, index) => (
+        <Tanzaku
+          index={index}
+          text={strip.text}
+          x={Math.random() * (width - 200)}
+          y={Math.random() * (height - 200)}
+          setBackBlur={setBackBlur}
+          key={`tanzaku_${index}`}
+        />
+      ))}
     </div>
   );
 }
