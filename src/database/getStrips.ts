@@ -8,6 +8,9 @@ export const useGetStrips = () => {
   const [strips, setStrips] = useState<StripType[] | undefined>(undefined);
 
   useEffect(() => {
+    // subscriptionのリスナー。
+    let listener: { unsubscribe: () => void } | null = null;
+
     // まず全件獲得する。
     fetchStrips().then((res) => {
       setStrips(res);
@@ -23,10 +26,12 @@ export const useGetStrips = () => {
         return strips.filter((strip) => strip.id !== newStrip.id).concat([newStrip]);
       });
     };
-    subscribeOnCreate(onCreate);
-  }, []);
+    listener = subscribeOnCreate(onCreate);
 
-  useEffect(() => {}, []);
+    return () => {
+      listener && listener.unsubscribe();
+    };
+  }, []);
 
   return strips;
 };
@@ -50,7 +55,7 @@ const fetchStrips = async (): Promise<StripType[] | undefined> => {
 // 引数に渡された関数が、短冊が新規作成されるたびに発火される。
 const subscribeOnCreate = (onCreate: (stored: StoredStripType) => void) => {
   // 型が全くわからん！
-  (API.graphql(graphqlOperation(onCreateTodo)) as any).subscribe({
+  return (API.graphql(graphqlOperation(onCreateTodo)) as any).subscribe({
     next: (eventData: any) => {
       console.log(eventData);
       const stored = eventData.value.data.onCreateTodo as StoredStripType;
