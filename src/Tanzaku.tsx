@@ -15,16 +15,22 @@ const Wrapper: React.FC<Props & { x: number; y: number; index: number }> = ({
 }) => {
   return (
     <motion.div
-      style={{ display: "flex", position: "absolute", top: y, left: x, zIndex: 20 }}
+      style={{
+        display: "flex",
+        position: "absolute",
+        top: y,
+        left: x,
+        zIndex: 20,
+      }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1, type: "spring" }}
       transition={{ duration: 0.6, delay: (index % 6) * 0.2 }}
     >
       <motion.div
-        animate={{ rotate: 15, translateX: -20 }}
+        animate={{ rotate: 8, translateX: -30 }}
         transition={{
           repeat: Infinity,
-          duration: 2,
+          duration: (index % 6) * 1,
           repeatType: "reverse",
           delay: (index % 6) * 0.2,
         }}
@@ -52,8 +58,9 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
     >
       <img
         style={{
-          width: 100,
+          width: 108,
           height: 400,
+          objectFit: "cover",
         }}
         src={require("./assets/tanzaku.png")}
         alt={text}
@@ -87,6 +94,7 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
             display: "flex",
             flexDirection: "row-reverse",
             padding: 8,
+            paddingTop: 100,
           }}
         >
           {text.split("\n").map((a, index) => {
@@ -98,7 +106,7 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
                   overflow: "hidden",
                   paddingTop: index * 24,
                   margin: 0,
-                  fontSize: 20,
+                  fontSize: 16,
                   writingMode: "vertical-rl",
                   fontWeight: "bold",
                 }}
