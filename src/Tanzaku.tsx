@@ -22,6 +22,7 @@ const Wrapper: React.FC<Props & { x: number; y: number; index: number }> = ({
         left: x,
         zIndex: 20,
       }}
+      className="tanzaku"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1, type: "spring" }}
       transition={{ duration: 0.6, delay: (index % 6) * 0.2 }}

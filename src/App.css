@@ -5,27 +5,12 @@
   }
 }
 
+.tanzaku {
+  transform: scale(1.5);
+}
+
 .background_movie {
-  transform: scaleX(3) scaleY(2);
-}
-
-.container {
-  background: url("./assets/6704_b.png") no-repeat;
-}
-
-.todo {
-  background: url("./assets/6704_y.png") no-repeat;
-}
-
-.todo_container {
-  width: 100%;
-  margin: "0 auto";
-  display: flex;
-  flex-direction: column;
-}
-
-.App {
-  /* text-align: center; */
+  transform: scaleX(3.5) scaleY(2);
 }
 
 .App-logo {

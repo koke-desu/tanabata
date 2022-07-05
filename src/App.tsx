@@ -5,16 +5,16 @@ import Tanzaku from "./Tanzaku";
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
 // @ts-ignore
-import take from "./assets/take.png";
+import take from "./assets/take_dual_screen.png";
 // @ts-ignore
 import background from "./assets/backgroundMovie.mp4";
+
+Amplify.configure(awsExports);
 
 const { width, height } = window.parent.screen;
 let coordinates: { x: number; y: number }[] = Array(30)
   .fill(0)
   .map(() => ({ x: Math.random() * (width - 200), y: Math.random() * (height - 200) }));
-
-Amplify.configure(awsExports);
 
 function App() {
   const strips = useGetStrips();
@@ -36,7 +36,7 @@ function App() {
       <img
         src={take}
         style={{ position: "absolute", top: 0, right: 0, zIndex: 10 }}
-        width={1200}
+        width={width}
         alt="竹"
       />
       <video
