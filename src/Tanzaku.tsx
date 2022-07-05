@@ -73,7 +73,8 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
           top: 0,
           height: "100%",
           width: "100%",
-          justifyContent: "space-between",
+          justifyContent: "start",
+          gap: 2,
           padding: 4,
         }}
       >
@@ -83,28 +84,25 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
             display: "flex",
             textAlign: "left",
             alignSelf: "flex-end",
-            padding: 4,
+            margin: 0,
+            paddingLeft: 4,
+            paddingBottom: 16,
             fontSize: 12,
+            marginRight: 12,
           }}
         >
           {name}
         </p>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row-reverse",
-            padding: 8,
-            paddingTop: 100,
-          }}
-        >
-          {text.split("\n").map((a, index) => {
+        {(text.split("\n").length === 1 ? text.split("\n").concat([""]) : text.split("\n"))
+          .reverse()
+          .map((a, index) => {
             if (index > 1) return;
             return (
               <p
                 style={{
                   whiteSpace: "nowrap",
                   overflow: "hidden",
-                  paddingTop: index * 24,
+                  paddingTop: (1 - index) * 24 + 120,
                   margin: 0,
                   fontSize: 16,
                   writingMode: "vertical-rl",
@@ -115,7 +113,6 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
               </p>
             );
           })}
-        </div>
       </div>
     </div>
   );

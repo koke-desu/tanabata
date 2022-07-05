@@ -9,12 +9,14 @@ import take from "./assets/take.png";
 // @ts-ignore
 import background from "./assets/backgroundMovie.mp4";
 
+const { width, height } = window.parent.screen;
+let coordinates: { x: number; y: number }[] = Array(30)
+  .fill(0)
+  .map(() => ({ x: Math.random() * (width - 200), y: Math.random() * (height - 200) }));
+
 Amplify.configure(awsExports);
 
 function App() {
-  const { width, height } = window.parent.screen;
-  const [backBlur, setBackBlur] = useState(false);
-
   const strips = useGetStrips();
 
   if (strips === undefined) return <p>loading...</p>;
@@ -51,8 +53,8 @@ function App() {
           text={strip.text}
           name={strip.name}
           index={index}
-          x={Math.random() * (width - 200)}
-          y={Math.random() * (height - 200)}
+          x={coordinates[index].x}
+          y={coordinates[index].y}
           key={`tanzaku_${index}`}
         />
       ))}
