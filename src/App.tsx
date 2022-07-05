@@ -31,15 +31,28 @@ function App() {
         position: "relative",
       }}
     >
-      <img src={take} style={{ position: "absolute", top: 0, right: 0 }} width={1200} alt="竹" />
-      <video src={background} width={1920} height={1020} autoPlay muted loop />
+      <img
+        src={take}
+        style={{ position: "absolute", top: 0, right: 0, zIndex: 10 }}
+        width={1200}
+        alt="竹"
+      />
+      <video
+        src={background}
+        width={1920}
+        height={1020}
+        autoPlay
+        muted
+        loop
+        className="background_movie"
+      />
       {strips.map((strip, index) => (
         <Tanzaku
-          index={index}
           text={strip.text}
+          name={strip.name}
+          index={index}
           x={Math.random() * (width - 200)}
           y={Math.random() * (height - 200)}
-          setBackBlur={setBackBlur}
           key={`tanzaku_${index}`}
         />
       ))}
