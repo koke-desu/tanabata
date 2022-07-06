@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import React from "react";
+import "./App.css";
+
+import red1 from "./assets/red1.png";
 
 type Props = {
   name: string;
@@ -31,7 +34,7 @@ const Wrapper: React.FC<Props & { x: number; y: number; index: number }> = ({
         animate={{ rotate: 8, translateX: -30 }}
         transition={{
           repeat: Infinity,
-          duration: (index % 6) * 1,
+          duration: (index % 6) + 2,
           repeatType: "reverse",
           delay: (index % 6) * 0.2,
         }}
@@ -52,18 +55,18 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
     <div
       style={{
         position: "relative",
-        width: 100,
-        height: 400,
+        width: 150,
+        height: 600,
         zIndex: 30,
       }}
     >
       <img
         style={{
-          width: 108,
-          height: 400,
+          width: 150,
+          height: 600,
           objectFit: "cover",
         }}
-        src={require("./assets/tanzaku.png")}
+        src={red1}
         alt={text}
       />
       <div
@@ -88,7 +91,7 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
             margin: 0,
             paddingLeft: 4,
             paddingBottom: 16,
-            fontSize: 12,
+            fontSize: 20,
             marginRight: 12,
           }}
         >
@@ -97,15 +100,15 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
         {(text.split("\n").length === 1 ? text.split("\n").concat([""]) : text.split("\n"))
           .reverse()
           .map((a, index) => {
-            if (index > 1) return;
+            if (index > 1) return <></>;
             return (
               <p
                 style={{
                   whiteSpace: "nowrap",
                   overflow: "hidden",
-                  paddingTop: (1 - index) * 24 + 120,
+                  paddingTop: (1 - index) * 32 + 170,
                   margin: 0,
-                  fontSize: 16,
+                  fontSize: 24,
                   writingMode: "vertical-rl",
                   fontWeight: "bold",
                 }}
