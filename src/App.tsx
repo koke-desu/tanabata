@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { useGetStrips } from "./database/getStrips";
 import Tanzaku from "./Tanzaku";
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
+// @ts-ignore
 import take from "./assets/take_dual_screen.png";
+// @ts-ignore
 import background from "./assets/backgroundMovie.mp4";
 
 Amplify.configure(awsExports);
@@ -37,8 +39,8 @@ function App() {
     >
       <img
         src={take}
-        style={{ position: "absolute", top: -100, right: 0, zIndex: 10 }}
-        width={3960}
+        style={{ position: "absolute", top: 0, right: 0, zIndex: 10 }}
+        width={width}
         alt="竹"
       />
       <video
