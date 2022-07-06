@@ -1,20 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { useGetStrips } from "./database/getStrips";
 import Tanzaku from "./Tanzaku";
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
+// @ts-ignore
 import take from "./assets/take_dual_screen.png";
+// @ts-ignore
 import background from "./assets/backgroundMovie.mp4";
 
 Amplify.configure(awsExports);
 
-const limit = 30; // 短冊数の上限
-
-// 短冊の座標をコンポーネント外で定義
+const { width, height } = window.parent.screen;
 let coordinates: { x: number; y: number }[] = Array(30)
   .fill(0)
-  .map((_, index) => ({ x: index * 120 * (Math.random() * 40 - 20), y: Math.random() * 230 + 70 }));
+  .map(() => ({ x: Math.random() * (width - 200), y: Math.random() * (height - 200) }));
 
 function App() {
   const strips = useGetStrips();
@@ -35,8 +35,8 @@ function App() {
     >
       <img
         src={take}
-        style={{ position: "absolute", top: -100, right: 0, zIndex: 10 }}
-        width={3960}
+        style={{ position: "absolute", top: 0, right: 0, zIndex: 10 }}
+        width={width}
         alt="竹"
       />
       <video
@@ -48,18 +48,16 @@ function App() {
         loop
         className="background_movie"
       />
-      {strips.map((strip, index) => {
-        return (
-          <Tanzaku
-            text={strip.text}
-            name={strip.name}
-            index={index}
-            x={0}
-            y={0}
-            key={`tanzaku_${index}`}
-          />
-        );
-      })}
+      {strips.map((strip, index) => (
+        <Tanzaku
+          text={strip.text}
+          name={strip.name}
+          index={index}
+          x={coordinates[index].x}
+          y={coordinates[index].y}
+          key={`tanzaku_${index}`}
+        />
+      ))}
     </div>
   );
 }
