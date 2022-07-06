@@ -3,6 +3,12 @@ import React from "react";
 import "./App.css";
 
 import red1 from "./assets/red1.png";
+import red2 from "./assets/red2.png";
+import red3 from "./assets/red3.png";
+import blue from "./assets/blue.png";
+import orange from "./assets/orange.png";
+
+const images = [red1, red2, red3, blue, orange];
 
 type Props = {
   name: string;
@@ -66,7 +72,7 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
           height: 600,
           objectFit: "cover",
         }}
-        src={red1}
+        src={images[Math.floor(Math.random() * 1000) % 5]}
         alt={text}
       />
       <div

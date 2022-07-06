@@ -9,12 +9,14 @@ import background from "./assets/backgroundMovie.mp4";
 
 Amplify.configure(awsExports);
 
-const limit = 30; // 短冊数の上限
+const limit = 22; // 短冊数の上限
 
 // 短冊の座標をコンポーネント外で定義
-let coordinates: { x: number; y: number }[] = Array(30)
+let coordinates: { x: number; y: number }[] = Array(limit)
   .fill(0)
-  .map((_, index) => ({ x: index * 120 * (Math.random() * 40 - 20), y: Math.random() * 230 + 70 }));
+  .map((_, index) => ({ x: index * 180 + Math.random() * 40, y: Math.random() * 230 + 70 }));
+
+const order = [5, 7, 12, 3, 8, 20, 15, 19, 1, 17, 0, 11, 6, 2, 4, 13, 10, 14, 16, 18, 9, 21];
 
 function App() {
   const strips = useGetStrips();
@@ -54,8 +56,8 @@ function App() {
             text={strip.text}
             name={strip.name}
             index={index}
-            x={0}
-            y={0}
+            x={coordinates[order[index]].x}
+            y={coordinates[order[index]].y}
             key={`tanzaku_${index}`}
           />
         );
