@@ -11,10 +11,14 @@ import background from "./assets/backgroundMovie.mp4";
 
 Amplify.configure(awsExports);
 
-const { width, height } = window.parent.screen;
-let coordinates: { x: number; y: number }[] = Array(30)
+const limit = 22; // 短冊数の上限
+
+// 短冊の座標をコンポーネント外で定義
+let coordinates: { x: number; y: number }[] = Array(limit)
   .fill(0)
-  .map(() => ({ x: Math.random() * (width - 200), y: Math.random() * (height - 200) }));
+  .map((_, index) => ({ x: index * 180 + Math.random() * 40, y: Math.random() * 230 + 70 }));
+
+const order = [5, 7, 12, 3, 8, 20, 15, 19, 1, 17, 0, 11, 6, 2, 4, 13, 10, 14, 16, 18, 9, 21];
 
 function App() {
   const strips = useGetStrips();
@@ -48,16 +52,18 @@ function App() {
         loop
         className="background_movie"
       />
-      {strips.map((strip, index) => (
-        <Tanzaku
-          text={strip.text}
-          name={strip.name}
-          index={index}
-          x={coordinates[index].x}
-          y={coordinates[index].y}
-          key={`tanzaku_${index}`}
-        />
-      ))}
+      {strips.map((strip, index) => {
+        return (
+          <Tanzaku
+            text={strip.text}
+            name={strip.name}
+            index={index}
+            x={coordinates[order[index]].x}
+            y={coordinates[order[index]].y}
+            key={`tanzaku_${index}`}
+          />
+        );
+      })}
     </div>
   );
 }
