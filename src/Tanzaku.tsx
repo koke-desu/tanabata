@@ -13,6 +13,7 @@ const images = [red1, red2, red3, blue, orange];
 type Props = {
   name: string;
   text: string;
+  imgIndex: number;
 };
 
 const Wrapper: React.FC<Props & { x: number; y: number; index: number }> = ({
@@ -21,6 +22,7 @@ const Wrapper: React.FC<Props & { x: number; y: number; index: number }> = ({
   x,
   y,
   index,
+  imgIndex,
 }) => {
   return (
     <motion.div
@@ -50,13 +52,13 @@ const Wrapper: React.FC<Props & { x: number; y: number; index: number }> = ({
           justifyContent: "center",
         }}
       >
-        <Tannzaku {...{ name, text }} />
+        <Tannzaku {...{ name, text, imgIndex }} />
       </motion.div>
     </motion.div>
   );
 };
 
-const Tannzaku: React.VFC<Props> = ({ name, text }) => {
+const Tannzaku: React.VFC<Props> = ({ name, text, imgIndex }) => {
   return (
     <div
       style={{
@@ -72,7 +74,7 @@ const Tannzaku: React.VFC<Props> = ({ name, text }) => {
           height: 600,
           objectFit: "cover",
         }}
-        src={images[Math.floor(Math.random() * 1000) % 5]}
+        src={images[imgIndex]}
         alt={text}
       />
       <div
