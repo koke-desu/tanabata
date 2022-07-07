@@ -3,6 +3,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { formatStrip, StoredStripType, StripType } from "./types";
 import { listTodos } from "../graphql/queries";
 import { onCreateTodo, onDeleteTodo } from "../graphql/subscriptions";
+import { stripNumLimit } from "../App";
 
 export const useGetStrips = () => {
   const [strips, setStrips] = useState<StripType[] | undefined>(undefined);
@@ -14,7 +15,12 @@ export const useGetStrips = () => {
 
     // まず全件獲得する。
     fetchStrips().then((res) => {
-      setStrips(res);
+      if (!res) return;
+
+      // 短冊数が超過しないように。
+      if (res.length > stripNumLimit) {
+        setStrips(res.slice(res.length - stripNumLimit));
+      } else setStrips(res);
     });
 
     // 短冊が新規作成されるたびに、stateを更新する。
@@ -24,7 +30,10 @@ export const useGetStrips = () => {
         if (strips === undefined) return [newStrip];
 
         // 重複は削除。
-        return strips.filter((strip) => strip.id !== newStrip.id).concat([newStrip]);
+        const uniqueStrips = strips.filter((strip) => strip.id !== newStrip.id).concat([newStrip]);
+
+        // 短冊数が超過しないように
+        return uniqueStrips.length > stripNumLimit ? uniqueStrips.slice(1) : uniqueStrips;
       });
     };
     createListener = subscribeOnCreate(onCreate);

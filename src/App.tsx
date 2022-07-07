@@ -9,10 +9,10 @@ import background from "./assets/backgroundMovie.mp4";
 
 Amplify.configure(awsExports);
 
-const limit = 22; // 短冊数の上限
+export const stripNumLimit = 22; // 短冊数の上限
 
 // 短冊の座標をコンポーネント外で定義
-let coordinates: { x: number; y: number }[] = Array(limit)
+let coordinates: { x: number; y: number }[] = Array(stripNumLimit)
   .fill(0)
   .map((_, index) => ({ x: index * 180 + Math.random() * 40, y: Math.random() * 230 + 70 }));
 
@@ -58,7 +58,7 @@ function App() {
             index={index}
             x={coordinates[order[index]].x}
             y={coordinates[order[index]].y}
-            key={`tanzaku_${index}`}
+            key={`tanzaku_${strip.id}`}
           />
         );
       })}
