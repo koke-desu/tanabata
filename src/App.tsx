@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import "./App.css";
 import { useGetStrips } from "./database/getStrips";
 import Tanzaku from "./Tanzaku";
